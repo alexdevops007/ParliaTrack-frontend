@@ -1,5 +1,5 @@
 import ApiService from './ApiService'
-import { Debate, DebateData } from '@/types'
+import type { Debate, DebateData } from '@/types'
 
 class DebateService {
   public async createDebate(debateData: DebateData): Promise<Debate> {
