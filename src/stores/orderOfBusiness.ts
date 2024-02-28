@@ -13,7 +13,7 @@ export const useOrderOfBusinessStore = defineStore('orderOfBusiness', {
       try {
         this.orders = await OrderOfBusinessService.getAllOrders()
       } catch (error) {
-        console.error('Error fetching orders:', error)
+        console.error('Erreur lors de la récupération des ordres du jour :', error)
       }
     },
 
@@ -21,7 +21,10 @@ export const useOrderOfBusinessStore = defineStore('orderOfBusiness', {
       try {
         this.currentOrder = await OrderOfBusinessService.getOrderById(orderId)
       } catch (error) {
-        console.error(`Error fetching order with ID ${orderId}:`, error)
+        console.error(
+          `Erreur lors de la récupération de l'ordre du jour avec l'ID ${orderId} :`,
+          error
+        )
       }
     },
 
@@ -30,7 +33,7 @@ export const useOrderOfBusinessStore = defineStore('orderOfBusiness', {
         const newOrder = await OrderOfBusinessService.createOrder(orderData)
         this.orders.push(newOrder)
       } catch (error) {
-        console.error('Error creating order:', error)
+        console.error("Erreur lors de la création de l'ordre du jour :", error)
       }
     },
 
@@ -42,7 +45,10 @@ export const useOrderOfBusinessStore = defineStore('orderOfBusiness', {
           this.orders[index] = updatedOrder
         }
       } catch (error) {
-        console.error(`Error updating order with ID ${orderId}:`, error)
+        console.error(
+          `Erreur lors de la mise à jour de l'ordre du jour avec l'ID ${orderId} :`,
+          error
+        )
       }
     },
 
@@ -51,7 +57,10 @@ export const useOrderOfBusinessStore = defineStore('orderOfBusiness', {
         await OrderOfBusinessService.deleteOrder(orderId)
         this.orders = this.orders.filter((order) => order._id !== orderId)
       } catch (error) {
-        console.error(`Error deleting order with ID ${orderId}:`, error)
+        console.error(
+          `Erreur lors de la suppression de l'ordre du jour avec l'ID ${orderId} :`,
+          error
+        )
       }
     }
   }
