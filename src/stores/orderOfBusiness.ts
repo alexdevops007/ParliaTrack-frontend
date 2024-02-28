@@ -1,41 +1,58 @@
 import { defineStore } from 'pinia'
-import ApiService from '@/services/ApiService'
+import OrderOfBusinessService from '@/services/OrderOfBusinessService'
 import type { OrderOfBusiness, OrderOfBusinessData } from '@/types'
 
-export const useOrderOfBusinessStore = defineStore({
-  id: 'orderOfBusiness',
+export const useOrderOfBusinessStore = defineStore('orderOfBusiness', {
   state: () => ({
-    orderOfBusinessList: [] as OrderOfBusiness[]
+    orders: [] as OrderOfBusiness[],
+    currentOrder: null as OrderOfBusiness | null
   }),
+
   actions: {
-    async createOrderOfBusiness(orderOfBusinessData: OrderOfBusinessData) {
-      const newOrderOfBusiness = await ApiService.post<OrderOfBusiness>(
-        '/order-of-business',
-        orderOfBusinessData
-      )
-      this.orderOfBusinessList.push(newOrderOfBusiness)
+    async getAllOrders() {
+      try {
+        this.orders = await OrderOfBusinessService.getAllOrders()
+      } catch (error) {
+        console.error('Error fetching orders:', error)
+      }
     },
-    async getAllOrderOfBusiness() {
-      this.orderOfBusinessList = await ApiService.get<OrderOfBusiness[]>('/order-of-business')
+
+    async getOrderById(orderId: string) {
+      try {
+        this.currentOrder = await OrderOfBusinessService.getOrderById(orderId)
+      } catch (error) {
+        console.error(`Error fetching order with ID ${orderId}:`, error)
+      }
     },
-    async getOrderOfBusinessById(orderOfBusinessId: string) {
-      return ApiService.get<OrderOfBusiness>(`/order-of-business/${orderOfBusinessId}`)
+
+    async createOrder(orderData: OrderOfBusinessData) {
+      try {
+        const newOrder = await OrderOfBusinessService.createOrder(orderData)
+        this.orders.push(newOrder)
+      } catch (error) {
+        console.error('Error creating order:', error)
+      }
     },
-    async updateOrderOfBusiness(orderOfBusinessId: string, updatedData: OrderOfBusinessData) {
-      const updatedOrderOfBusiness = await ApiService.put<OrderOfBusiness>(
-        `/order-of-business/${orderOfBusinessId}`,
-        updatedData
-      )
-      const index = this.orderOfBusinessList.findIndex(
-        (order) => order._id === updatedOrderOfBusiness._id
-      )
-      this.orderOfBusinessList[index] = updatedOrderOfBusiness
+
+    async updateOrder({ orderId, orderData }: { orderId: string; orderData: OrderOfBusinessData }) {
+      try {
+        const updatedOrder = await OrderOfBusinessService.updateOrder(orderId, orderData)
+        const index = this.orders.findIndex((order) => order._id === orderId)
+        if (index !== -1) {
+          this.orders[index] = updatedOrder
+        }
+      } catch (error) {
+        console.error(`Error updating order with ID ${orderId}:`, error)
+      }
     },
-    async deleteOrderOfBusiness(orderOfBusinessId: string) {
-      await ApiService.delete<OrderOfBusiness>(`/order-of-business/${orderOfBusinessId}`)
-      this.orderOfBusinessList = this.orderOfBusinessList.filter(
-        (order) => order._id !== orderOfBusinessId
-      )
+
+    async deleteOrder(orderId: string) {
+      try {
+        await OrderOfBusinessService.deleteOrder(orderId)
+        this.orders = this.orders.filter((order) => order._id !== orderId)
+      } catch (error) {
+        console.error(`Error deleting order with ID ${orderId}:`, error)
+      }
     }
   }
 })
