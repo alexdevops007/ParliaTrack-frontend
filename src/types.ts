@@ -1,11 +1,11 @@
 // Interface OrderOfBusiness
-export interface Order {
+export interface OrderOfBusiness {
   _id: string
   title: string
   description: string
 }
 
-export interface OrderData {
+export interface OrderOfBusinessData {
   title: string
   description: string
 }
