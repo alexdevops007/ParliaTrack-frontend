@@ -1,5 +1,5 @@
 import ApiService from './ApiService'
-import { Participant, ParticipantData } from '@/types'
+import type { Participant, ParticipantData } from '@/types'
 
 class ParticipantService {
   public async createParticipant(participantData: ParticipantData): Promise<Participant> {
