@@ -1,5 +1,5 @@
 import ApiService from './ApiService'
-import { Document, DocumentData } from '@/types'
+import type { Document, DocumentData } from '@/types'
 
 class DocumentService {
   public async uploadDocument(documentData: DocumentData): Promise<Document> {
