@@ -1,5 +1,5 @@
 import ApiService from './ApiService'
-import { Event, EventData } from '@/types'
+import type { Event, EventData } from '@/types'
 
 class EventService {
   public async createEvent(eventData: EventData): Promise<Event> {
