@@ -8,6 +8,11 @@ export const useParticipantStore = defineStore('participant', {
     selectedParticipant: null as Participant | null
   }),
 
+  getters: {
+    getAllParticipants: (state) => state.participants,
+    getSelectedParticipant: (state) => state.selectedParticipant
+  },
+
   actions: {
     async createParticipant(participantData: ParticipantData): Promise<void> {
       try {
@@ -65,3 +70,5 @@ export const useParticipantStore = defineStore('participant', {
     }
   }
 })
+
+export default useParticipantStore

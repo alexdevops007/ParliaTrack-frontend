@@ -8,6 +8,11 @@ export const useOrderOfBusinessStore = defineStore('orderOfBusiness', {
     currentOrder: null as OrderOfBusiness | null
   }),
 
+  getters: {
+    getAllOrders: (state) => state.orders,
+    getCurrentOrder: (state) => state.currentOrder
+  },
+
   actions: {
     async getAllOrders() {
       try {
@@ -65,3 +70,5 @@ export const useOrderOfBusinessStore = defineStore('orderOfBusiness', {
     }
   }
 })
+
+export default useOrderOfBusinessStore

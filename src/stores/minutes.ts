@@ -8,6 +8,11 @@ export const useMinutesStore = defineStore('minutes', {
     currentMinutes: {} as Minutes
   }),
 
+  getters: {
+    getAllMinutes: (state) => state.minutesList,
+    getCurrentMinutes: (state) => state.currentMinutes
+  },
+
   actions: {
     async createMinutes(minutesData: MinutesData): Promise<void> {
       try {
@@ -66,3 +71,5 @@ export const useMinutesStore = defineStore('minutes', {
     }
   }
 })
+
+export default useMinutesStore
