@@ -8,6 +8,11 @@ export const useDebateStore = defineStore('debate', {
     currentDebate: null as Debate | null
   }),
 
+  getters: {
+    getDebates: (state) => state.debates,
+    getCurrentDebate: (state) => state.currentDebate
+  },
+
   actions: {
     async createDebate(debateData: DebateData): Promise<void> {
       try {
