@@ -2,10 +2,15 @@ import { defineStore } from 'pinia'
 import EventService from '@/services/EventService'
 import type { Event, EventData } from '@/types'
 
-export const useCalendarStore = defineStore('calendar', {
+export const useEventStore = defineStore('calendar', {
   state: () => ({
     events: [] as Event[]
   }),
+
+  getters: {
+    getEvents: (state) => state.events
+  },
+
   actions: {
     async createEvent(eventData: EventData): Promise<void> {
       try {
@@ -74,3 +79,5 @@ export const useCalendarStore = defineStore('calendar', {
     }
   }
 })
+
+export default useEventStore

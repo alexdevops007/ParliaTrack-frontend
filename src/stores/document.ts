@@ -8,6 +8,11 @@ export const useDocumentStore = defineStore('document', {
     currentDocument: null as Document | null
   }),
 
+  getters: {
+    getDocuments: (state) => state.documents,
+    getCurrentDocument: (state) => state.currentDocument
+  },
+
   actions: {
     async uploadDocument(documentData: DocumentData): Promise<void> {
       try {
