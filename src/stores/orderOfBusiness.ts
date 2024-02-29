@@ -14,7 +14,7 @@ export const useOrderOfBusinessStore = defineStore('orderOfBusiness', {
   },
 
   actions: {
-    async getAllOrders() {
+    async fetchAllOrders() {
       try {
         this.orders = await OrderOfBusinessService.getAllOrders()
       } catch (error) {

@@ -45,7 +45,7 @@ import { useOrderOfBusinessStore } from '../../stores/orderOfBusiness'
 import type { OrderOfBusinessData } from '../../types'
 
 const router = useRouter()
-const { createOrder, getAllOrders } = useOrderOfBusinessStore()
+const { createOrder, fetchAllOrders } = useOrderOfBusinessStore()
 const title = ref('')
 const description = ref('')
 const successMessage = ref('')
@@ -56,7 +56,7 @@ const submitForm = async () => {
     await createOrder(orderData)
 
     // Mettre à jour la liste des ordres du jour
-    await getAllOrders()
+    await fetchAllOrders()
 
     // Afficher le message de succès
     successMessage.value = 'Ordre du Jour ajouté avec succès'
