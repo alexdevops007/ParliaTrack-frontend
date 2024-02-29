@@ -1,11 +1,9 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios'
 
 class ApiService {
-  private baseURL: string
   private axiosInstance: AxiosInstance
 
   constructor(baseURL: string) {
-    this.baseURL = baseURL
     this.axiosInstance = axios.create({ baseURL })
   }
 
@@ -15,10 +13,17 @@ class ApiService {
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        throw error.response?.data || error.message || 'Request failed'
+        // La requête a été faite et le serveur a répondu avec un statut différent de 2xx
+        if (error.response) {
+          console.error('Error response:', error.response.data)
+        } else {
+          console.error('No response received')
+        }
       } else {
-        throw 'Request failed'
+        // Une erreur s'est produite lors de la configuration de la requête
+        console.error('Request configuration error:', error)
       }
+      throw new Error('Request failed')
     }
   }
 
